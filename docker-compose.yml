@@ -1,0 +1,23 @@
+version: '3'
+
+services:
+
+    nginx:
+        restart: always
+        environment:
+            - PHP_HOST=php:9000
+        build:
+            context: ./nginx
+        volumes:
+            - ./index.php:/var/www/html/index.php
+        ports:
+            - "80:80"
+
+    php:
+        restart: always
+        build:
+            context: ./php
+        expose:
+            - "9000"    
+        volumes:
+            - ./index.php:/var/www/html/index.php
